@@ -1,25 +1,42 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useEmployeePage from "./hooks/useEmployeePage";
-import EmployeeDetailsForm from "./EmployeeForm";
+import EmployeeForm from "./EmployeeForm";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../assets/EmployeeDetails.css";
 
-const EmployeeDetailsPage = () => {
+const EmployeePage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false); // State to control modal visibility
 
   const {
     formData,
-    editMode,
-    showSuccessToast,
     error,
     isLoading,
     handleEdit,
     handleCancel,
     handleSuccess,
   } = useEmployeePage(id);
+
+  // Handle opening the modal
+  const handleOpenModal = () => {
+    handleEdit(); // Call the original handleEdit function
+    setShowModal(true); // Show the modal
+  };
+
+  // Handle modal close
+  const handleCloseModal = () => {
+    setShowModal(false);
+    handleCancel(); // Ensure we reset any edit state
+  };
+
+  // Handle form submission success
+  const handleFormSuccess = (response) => {
+    handleSuccess(response); // Call the original success handler
+    setShowModal(false); // Close the modal
+  };
 
   const profileImage = useMemo(() => {
     if (
@@ -139,51 +156,34 @@ const EmployeeDetailsPage = () => {
               <p className="designation-badge">
                 {formData.designation?.title || "Designation"}
               </p>
-              {!editMode && (
-                <button onClick={handleEdit} className="edit-button">
-                  <i className="bi bi-pencil-square"></i>
-                  Edit Details
-                </button>
-              )}
+              <button onClick={handleOpenModal} className="edit-button">
+                <i className="bi bi-pencil-square"></i>
+                Edit Details
+              </button>
             </div>
 
-            {editMode ? (
-              <EmployeeDetailsForm
-                initialValues={formData}
-                onSuccess={handleSuccess}
-                onCancel={handleCancel}
-              />
-            ) : (
-              <div className="info-sections">
-                {renderInfoSection("Personal Information", personalInfo)}
-                {renderInfoSection("Employment Details", employmentInfo)}
-                {renderInfoSection("Banking Information", bankingInfo)}
-                {renderInfoSection("Emergency Contact", emergencyInfo)}
-              </div>
-            )}
+            <div className="info-sections">
+              {renderInfoSection("Personal Information", personalInfo)}
+              {renderInfoSection("Employment Details", employmentInfo)}
+              {renderInfoSection("Banking Information", bankingInfo)}
+              {renderInfoSection("Emergency Contact", emergencyInfo)}
+            </div>
           </div>
         </div>
       </div>
 
-      {showSuccessToast && (
-        <div className="toast-container">
-          <div className="toast-content">
-            <div className="toast-header">
-              <i className="bi bi-check-circle-fill"></i>
-              <strong>Success</strong>
-              <small>Just now</small>
-              <button type="button" className="toast-close">
-                ×
-              </button>
-            </div>
-            <div className="toast-body">Record Updated Successfully</div>
-          </div>
-        </div>
-      )}
+      {/* Modal Component */}
+      <EmployeeForm
+        show={showModal}
+        onHide={handleCloseModal}
+        initialValues={formData}
+        onSuccess={handleFormSuccess}
+        onCancel={handleCloseModal}
+      />
 
       <ToastContainer />
     </div>
   );
 };
 
-export default EmployeeDetailsPage;
+export default EmployeePage;
