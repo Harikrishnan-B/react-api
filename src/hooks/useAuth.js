@@ -3,7 +3,7 @@ import { useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { userRecoilState } from "../recoil/userState";
 import axios from "axios";
-import { axiosInstance, API_ENDPOINTS } from '../config/axiosInstance.js'
+import { axiosInstance, API_ENDPOINTS } from "../config/axiosInstance.js";
 
 const useAuth = () => {
   const [error, setError] = useState("");
@@ -11,9 +11,11 @@ const useAuth = () => {
   const navigate = useNavigate();
 
   const login = async (username, password) => {
-    setError(""); // 
+    setError("");
     try {
-      const response =  await axiosInstance.post(API_ENDPOINTS.auth.login, { username, password },
+      const response = await axiosInstance.post(
+        API_ENDPOINTS.auth.login,
+        { username, password },
         { headers: { "Content-Type": "application/json" } }
       );
 
@@ -26,7 +28,8 @@ const useAuth = () => {
       }
     } catch (err) {
       setError(
-        err.response?.data?.message || "Login failed. Please check your credentials."
+        err.response?.data?.message ||
+          "Login failed. Please check your credentials."
       );
     }
   };

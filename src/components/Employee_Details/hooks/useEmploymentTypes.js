@@ -14,7 +14,10 @@ const useEmploymentTypes = () => {
   const { data, error, isLoading } = useSWR(
     token ? ["employmentTypes", token] : null,
     ([, token]) =>
-      fetcher("https://core-skill-test.webc.in/employee-portal/api/v1/settings/employment-types", token)
+      fetcher(
+        "https://core-skill-test.webc.in/employee-portal/api/v1/settings/employment-types",
+        token
+      )
   );
 
   return { employmentTypes: data, error, isLoading };

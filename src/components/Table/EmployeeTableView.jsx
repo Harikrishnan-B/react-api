@@ -8,10 +8,12 @@ const EmployeeTableView = ({
   setSearchParams,
   isValidating,
 }) => {
-  const totalRecords = pagination?.total || table.getPrePaginationRowModel().rows.length;
+  const totalRecords =
+    pagination?.total || table.getPrePaginationRowModel().rows.length;
   const pageSize = pagination?.per_page || table.getState().pagination.pageSize;
   const currentPage = parseInt(searchParams.get("page")) || 1;
-  const totalPages = pagination?.last_page || Math.ceil(totalRecords / pageSize);
+  const totalPages =
+    pagination?.last_page || Math.ceil(totalRecords / pageSize);
 
   const handlePageChange = (pageNumber) => {
     if (!isValidating) {
@@ -21,7 +23,6 @@ const EmployeeTableView = ({
 
   return (
     <div className="container">
-      {/* Table Display Section */}
       <div className="table-responsive">
         <table className="table table-bordered table-striped">
           <thead className="table-light">
@@ -31,7 +32,10 @@ const EmployeeTableView = ({
                   <th key={header.id}>
                     {header.isPlaceholder
                       ? null
-                      : flexRender(header.column.columnDef.header, header.getContext())}
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                   </th>
                 ))}
               </tr>
@@ -41,13 +45,18 @@ const EmployeeTableView = ({
             {table.getRowModel().rows.map((row) => (
               <tr key={row.id}>
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+                  <td key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
                 ))}
               </tr>
             ))}
             {table.getRowModel().rows.length === 0 && (
               <tr>
-                <td colSpan={table.getAllColumns().length} className="text-center">
+                <td
+                  colSpan={table.getAllColumns().length}
+                  className="text-center"
+                >
                   {isValidating ? "Loading..." : "No records found"}
                 </td>
               </tr>
@@ -56,7 +65,6 @@ const EmployeeTableView = ({
         </table>
       </div>
 
-      {/* Pagination Section */}
       <div className="d-flex justify-content-between align-items-center mt-4">
         <button
           className="btn btn-outline-primary"
@@ -69,7 +77,10 @@ const EmployeeTableView = ({
         <nav>
           <ul className="pagination mb-0">
             {Array.from({ length: totalPages }, (_, i) => (
-              <li key={i + 1} className={`page-item ${currentPage === i + 1 ? "active" : ""}`}>
+              <li
+                key={i + 1}
+                className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
+              >
                 <button
                   className="page-link"
                   onClick={() => handlePageChange(i + 1)}
@@ -91,7 +102,9 @@ const EmployeeTableView = ({
         </button>
       </div>
 
-      <div className="text-center mt-3">Page {currentPage} of {totalPages}</div>
+      <div className="text-center mt-3">
+        Page {currentPage} of {totalPages}
+      </div>
     </div>
   );
 };

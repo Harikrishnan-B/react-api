@@ -5,7 +5,7 @@ import { userState } from "../recoil/userState";
 import { Form, useField } from "informed";
 import useAuth from "../hooks/useAuth";
 import { Eye, EyeOff, UserCircle, Lock } from "lucide-react";
-import '../assets/Login.css'
+import "../assets/Login.css";
 
 const CustomField = ({
   label,
@@ -37,11 +37,7 @@ const CustomField = ({
       )}
       {append ? (
         <div className="input-group">
-          {icon && (
-            <div className="input-icon">
-              {icon}
-            </div>
-          )}
+          {icon && <div className="input-icon">{icon}</div>}
           <input
             {...props}
             id={inputId}
@@ -54,17 +50,11 @@ const CustomField = ({
             aria-invalid={!!error}
             aria-describedby={error ? errorId : undefined}
           />
-          <div className="input-append">
-            {append}
-          </div>
+          <div className="input-append">{append}</div>
         </div>
       ) : (
         <div className="input-container">
-          {icon && (
-            <div className="input-icon">
-              {icon}
-            </div>
-          )}
+          {icon && <div className="input-icon">{icon}</div>}
           <input
             {...props}
             id={inputId}
@@ -88,7 +78,6 @@ const CustomField = ({
   );
 };
 
-// Email validation utility
 const validateEmail = (value) => {
   if (!value) return "Email is required";
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -121,19 +110,27 @@ const Login = () => {
           <h2 className="header-title">Welcome Back</h2>
           <p className="header-subtitle">Sign in to your account</p>
         </div>
-        
+
         <div className="login-form-container">
           {error && (
             <div className="error-alert" role="alert">
               <div className="error-content">
-                <svg className="error-icon" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clipRule="evenodd" />
+                <svg
+                  className="error-icon"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z"
+                    clipRule="evenodd"
+                  />
                 </svg>
                 <span>{error}</span>
               </div>
             </div>
           )}
-          
+
           <Form onSubmit={handleSubmit}>
             <CustomField
               label="Email"
@@ -148,7 +145,9 @@ const Login = () => {
               label="Password"
               name="password"
               fieldType={showPassword ? "text" : "password"}
-              validate={(value) => (!value ? "Password is required" : undefined)}
+              validate={(value) =>
+                !value ? "Password is required" : undefined
+              }
               required
               icon={<Lock size={18} />}
               placeholder="Enter your password"
@@ -163,14 +162,10 @@ const Login = () => {
               }
             />
 
-            <button
-              type="submit"
-              className="submit-button"
-            >
+            <button type="submit" className="submit-button">
               Sign In
             </button>
           </Form>
-        
         </div>
       </div>
     </div>

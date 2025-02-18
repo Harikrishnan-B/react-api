@@ -27,7 +27,7 @@ export const useEmployeeData = ({
   const { data, error, isLoading, mutate } = useSWR(
     token ? url : null,
     fetcher,
-    {keepPreviousData: true}
+    { keepPreviousData: true }
   );
 
   const employees = data?.data?.rows?.data || [];

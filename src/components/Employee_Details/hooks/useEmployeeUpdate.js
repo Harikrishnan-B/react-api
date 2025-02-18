@@ -1,4 +1,3 @@
-// useEmployeeUpdate.js
 import { useState, useCallback } from "react";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
@@ -50,7 +49,6 @@ const useEmployeeUpdate = () => {
         formDataToSend.append(key, value);
       }
     });
-    // Append the file if provided
     if (data.profile_picture instanceof File) {
       formDataToSend.append("profile_picture", data.profile_picture);
     }
@@ -86,8 +84,15 @@ const useEmployeeUpdate = () => {
         setFieldErrors(backendErrors);
         const backendMessage =
           err.response?.data?.message || "Error updating employee details.";
-        console.error("Update employee error:", err.response?.data || err.message);
-        return { success: false, error: backendMessage, fieldErrors: backendErrors };
+        console.error(
+          "Update employee error:",
+          err.response?.data || err.message
+        );
+        return {
+          success: false,
+          error: backendMessage,
+          fieldErrors: backendErrors,
+        };
       } finally {
         setIsSaving(false);
       }

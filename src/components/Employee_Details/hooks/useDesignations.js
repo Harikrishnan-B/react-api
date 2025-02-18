@@ -14,7 +14,10 @@ const useDesignations = () => {
   const { data, error, isLoading } = useSWR(
     token ? ["designations", token] : null,
     ([, token]) =>
-      fetcher("https://core-skill-test.webc.in/employee-portal/api/v1/settings/designations", token)
+      fetcher(
+        "https://core-skill-test.webc.in/employee-portal/api/v1/settings/designations",
+        token
+      )
   );
 
   return { designations: data, error, isLoading };

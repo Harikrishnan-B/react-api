@@ -1,10 +1,17 @@
 import React from "react";
 import { useField, useFormState } from "informed";
 
-const CustomSelect = ({ label, field, validate, backendError, children, ...rest }) => {
+const CustomSelect = ({
+  label,
+  field,
+  validate,
+  backendError,
+  children,
+  ...rest
+}) => {
   const { fieldState, fieldApi, ref } = useField({ field, validate });
   const { error, touched, value } = fieldState;
-  const { values } = useFormState();  
+  const { values } = useFormState();
   const displayError = touched && (error || backendError);
   return (
     <div className="mb-3">
@@ -21,7 +28,7 @@ const CustomSelect = ({ label, field, validate, backendError, children, ...rest 
           fieldApi.setValue(newValue);
 
           const validationError = validate ? validate(newValue, values) : null;
-          fieldApi.setError(validationError);  
+          fieldApi.setError(validationError);
         }}
         onBlur={() => fieldApi.setTouched(true)}
         className="form-select"
@@ -29,7 +36,9 @@ const CustomSelect = ({ label, field, validate, backendError, children, ...rest 
       >
         {children}
       </select>
-      {displayError && <div className="text-danger small">{error || backendError}</div>}
+      {displayError && (
+        <div className="text-danger small">{error || backendError}</div>
+      )}
     </div>
   );
 };

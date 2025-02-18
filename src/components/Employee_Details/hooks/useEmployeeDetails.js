@@ -1,11 +1,9 @@
-// useEmployeeDetails.js
 import { useMemo } from "react";
 import useSWR from "swr";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
 import { userRecoilState } from "../../../recoil/userState";
 
-// SWR fetcher for employee details
 const fetcher = async (url, id, token) => {
   const response = await axios.get(url, {
     params: { id },

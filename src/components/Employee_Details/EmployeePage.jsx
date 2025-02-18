@@ -20,23 +20,20 @@ const EmployeePage = () => {
     handleSuccess,
   } = useEmployeePage(id);
 
-  // Handle opening the modal
   const handleOpenModal = () => {
     handleEdit(); // Call the original handleEdit function
     setShowModal(true); // Show the modal
   };
 
-  // Handle modal close
   const handleCloseModal = () => {
     setShowModal(false);
     handleCancel(); // Ensure we reset any edit state
   };
 
-  // Handle form submission success
   const handleFormSuccess = (response) => {
     handleSuccess(response); // Call the original success handler
     setShowModal(false); // Close the modal
-  }; 
+  };
 
   const profileImage = useMemo(() => {
     if (
@@ -136,7 +133,6 @@ const EmployeePage = () => {
 
   return (
     <div className="page-wrapper">
-      {/* Back Button Placed Outside the Main Container */}
       <button onClick={() => navigate(-1)} className="back-button">
         <i className="bi bi-arrow-left"></i> Back
       </button>

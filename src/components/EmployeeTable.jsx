@@ -14,9 +14,14 @@ const EmployeeTable = () => {
     length: 10,
     sort_order: "asc",
     sort_by: "name",
-  }; 
+  };
 
-  const { data = [], isLoading, error, pagination } = useEmployeeData(tableConfig);
+  const {
+    data = [],
+    isLoading,
+    error,
+    pagination,
+  } = useEmployeeData(tableConfig);
 
   const columns = [
     { accessorKey: "employee_code", header: "Employee Id" },
@@ -46,7 +51,9 @@ const EmployeeTable = () => {
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    initialState: { pagination: { pageIndex: pageParam - 1, pageSize: tableConfig.length } },
+    initialState: {
+      pagination: { pageIndex: pageParam - 1, pageSize: tableConfig.length },
+    },
   });
 
   if (error) {

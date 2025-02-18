@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { toast } from "react-toastify"; // ✅ Import Toastify
-import useEmployeeDetails from "./useEmployeeDetails"; 
+import useEmployeeDetails from "./useEmployeeDetails";
 
 const useEmployeePage = (id) => {
   const { details, error, isLoading, mutate } = useEmployeeDetails(id);

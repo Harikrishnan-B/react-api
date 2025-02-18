@@ -25,7 +25,9 @@ const CustomFileInput = ({ label, field, validate, backendError, ...rest }) => {
         }}
         {...rest}
       />
-      {displayError && <div className="text-danger small">{error || backendError}</div>}
+      {displayError && (
+        <div className="text-danger small">{error || backendError}</div>
+      )}
     </div>
   );
 };

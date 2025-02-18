@@ -1,9 +1,7 @@
-// src/config/api.js
 import axios from 'axios';
 
 const BASE_URL = 'https://core-skill-test.webc.in/employee-portal';
 
-// Create axios instance with default config
 export const axiosInstance = axios.create({
   baseURL: BASE_URL,
   timeout: 10000,
@@ -12,7 +10,6 @@ export const axiosInstance = axios.create({
   },
 });
 
-// API endpoints
 export const API_ENDPOINTS = {
   auth: {
     login: '/api/v1/auth/login',
@@ -30,7 +27,6 @@ export const API_ENDPOINTS = {
   },
 };
 
-// Helper to add auth token to requests
 export const setAuthToken = (token) => {
   if (token) {
     axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;

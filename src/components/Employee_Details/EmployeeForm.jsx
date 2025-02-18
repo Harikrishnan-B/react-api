@@ -1,6 +1,6 @@
 import React from "react";
 import { Form } from "informed";
-import { Modal, Button } from "react-bootstrap"; // Assuming you're using react-bootstrap for modals
+import { Modal, Button } from "react-bootstrap";
 import useDesignations from "./hooks/useDesignations.js";
 import useDepartments from "./hooks/useDepartments.js";
 import useEmploymentTypes from "./hooks/useEmploymentTypes.js";
@@ -9,10 +9,13 @@ import CustomSelect from "./CustomSelect.jsx";
 import CustomRadioGroup from "./CustomRadioGroup.jsx";
 import CustomFileInput from "./CustomFileInput.jsx";
 import useEmployeeForm from "./hooks/useEmployeeForm.js";
-import { validation } from '../../utils/validation.js';
+import { validation } from "../../utils/validation.js";
 
 const EmployeeForm = ({ initialValues, onSuccess, onCancel, show, onHide }) => {
-  const { handleSubmit, isSaving, fieldErrors } = useEmployeeForm(initialValues, onSuccess);
+  const { handleSubmit, isSaving, fieldErrors } = useEmployeeForm(
+    initialValues,
+    onSuccess
+  );
   const { departments } = useDepartments();
   const { designations } = useDesignations();
   const { employmentTypes } = useEmploymentTypes();
@@ -20,7 +23,7 @@ const EmployeeForm = ({ initialValues, onSuccess, onCancel, show, onHide }) => {
   const masterData = {
     departments,
     designations,
-    employmentTypes
+    employmentTypes,
   };
 
   const sections = [
@@ -49,13 +52,23 @@ const EmployeeForm = ({ initialValues, onSuccess, onCancel, show, onHide }) => {
     {
       title: "Banking Information",
       fields: [
-        { label: "Bank Account Number", field: "bank_account_number", type: "text" },
+        {
+          label: "Bank Account Number",
+          field: "bank_account_number",
+          type: "text",
+        },
         { label: "IFSC Code", field: "ifsc_code", type: "text" },
       ],
     },
     {
       title: "Emergency Contact",
-      fields: [{ label: "Emergency Contact", field: "emergency_contact", type: "text" }],
+      fields: [
+        {
+          label: "Emergency Contact",
+          field: "emergency_contact",
+          type: "text",
+        },
+      ],
     },
   ];
 
@@ -81,40 +94,42 @@ const EmployeeForm = ({ initialValues, onSuccess, onCancel, show, onHide }) => {
   };
 
   const handleFormSubmit = (values) => {
-    // Call the original handleSubmit, but also make sure we handle modal specific logic
     handleSubmit(values);
-    // Note: onSuccess will close the modal when the submission is successful
   };
 
   const handleCancel = () => {
-    // Call the original onCancel function, but also handle modal specific closing
     if (onCancel) onCancel();
     onHide();
   };
 
   return (
-    <Modal 
-      show={show} 
-      onHide={onHide} 
+    <Modal
+      show={show}
+      onHide={onHide}
       size="lg"
       aria-labelledby="employee-details-modal"
       centered
     >
       <Modal.Header closeButton>
         <Modal.Title id="employee-details-modal">
-          {initialValues?.id ? 'Edit Employee Details' : 'Add New Employee'}
+          {initialValues?.id ? "Edit Employee Details" : "Add New Employee"}
         </Modal.Title>
       </Modal.Header>
-      
-      <Form initialValues={initialValues} onSubmit={handleFormSubmit} className="employee-form" focusOnInvalid='true'>
+
+      <Form
+        initialValues={initialValues}
+        onSubmit={handleFormSubmit}
+        className="employee-form"
+        focusOnInvalid="true"
+      >
         <Modal.Body>
           <div className="form-container modal-form-container">
             <div className="section">
               <h5>Profile Picture</h5>
-              <CustomFileInput 
-                label="Upload Photo" 
-                field="profile_picture" 
-                backendError={fieldErrors["profile_picture"]} 
+              <CustomFileInput
+                label="Upload Photo"
+                field="profile_picture"
+                backendError={fieldErrors["profile_picture"]}
                 validate={(values) => validation(values).profile_picture}
               />
             </div>
@@ -128,10 +143,10 @@ const EmployeeForm = ({ initialValues, onSuccess, onCancel, show, onHide }) => {
                       key={field}
                       label={label}
                       field={field}
-                      type={type || 'text'}
+                      type={type || "text"}
                       required
                       backendError={fieldErrors[field]}
-                      validate={field === 'name' ? validateName : undefined}
+                      validate={field === "name" ? validateName : undefined}
                     />
                   ))}
                 </div>
@@ -140,7 +155,7 @@ const EmployeeForm = ({ initialValues, onSuccess, onCancel, show, onHide }) => {
 
             <div className="section">
               <h5>Gender</h5>
-              <CustomRadioGroup 
+              <CustomRadioGroup
                 label="Select Gender"
                 field="gender"
                 options={genderOptions}
@@ -151,11 +166,7 @@ const EmployeeForm = ({ initialValues, onSuccess, onCancel, show, onHide }) => {
             <div className="section">
               <h5>Employment Details</h5>
               <div className="form-grid modal-form-grid">
-                <CustomSelect 
-                  label="Department" 
-                  field="department_id" 
-                  required 
-                >
+                <CustomSelect label="Department" field="department_id" required>
                   {departments?.map((opt) => (
                     <option key={opt.id} value={opt.id}>
                       {opt.name}
@@ -163,10 +174,10 @@ const EmployeeForm = ({ initialValues, onSuccess, onCancel, show, onHide }) => {
                   ))}
                 </CustomSelect>
 
-                <CustomSelect 
-                  label="Designation" 
-                  field="designation_id" 
-                  required 
+                <CustomSelect
+                  label="Designation"
+                  field="designation_id"
+                  required
                 >
                   {designations?.map((opt) => (
                     <option key={opt.id} value={opt.id}>
@@ -175,10 +186,10 @@ const EmployeeForm = ({ initialValues, onSuccess, onCancel, show, onHide }) => {
                   ))}
                 </CustomSelect>
 
-                <CustomSelect 
-                  label="Employment Type" 
-                  field="employment_type_id" 
-                  required 
+                <CustomSelect
+                  label="Employment Type"
+                  field="employment_type_id"
+                  required
                 >
                   {employmentTypes?.map((opt) => (
                     <option key={opt.id} value={opt.id}>
@@ -190,16 +201,12 @@ const EmployeeForm = ({ initialValues, onSuccess, onCancel, show, onHide }) => {
             </div>
           </div>
         </Modal.Body>
-        
+
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCancel}>
             Cancel
           </Button>
-          <Button 
-            variant="primary" 
-            type="submit"
-            disabled={isSaving}
-          >
+          <Button variant="primary" type="submit" disabled={isSaving}>
             {isSaving ? "Saving..." : "Save Changes"}
           </Button>
         </Modal.Footer>

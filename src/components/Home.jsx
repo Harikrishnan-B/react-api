@@ -63,27 +63,25 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      {/* Header with logout button positioned at top left */}
       <div className="header-container">
-        <button 
-          onClick={initiateLogout}
-          className="logout-button"
-        >
+        <button onClick={initiateLogout} className="logout-button">
           Logout
         </button>
       </div>
-      
-      {/* Main content */}
+
       <EmployeeTable />
-      
-      {/* Logout confirmation dialog */}
+
       {showLogoutConfirm && (
         <div className="logout-confirmation-overlay">
           <div className="logout-confirmation-dialog">
             <p>Do you want to logout?</p>
             <div className="dialog-buttons">
-              <button onClick={confirmLogout} className="btn btn-primary">Yes</button>
-              <button onClick={cancelLogout} className="btn btn-secondary">No</button>
+              <button onClick={confirmLogout} className="btn btn-primary">
+                Yes
+              </button>
+              <button onClick={cancelLogout} className="btn btn-secondary">
+                No
+              </button>
             </div>
           </div>
         </div>
