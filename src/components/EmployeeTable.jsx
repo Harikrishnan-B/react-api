@@ -2,7 +2,7 @@ import React from "react";
 import { useEmployeeData } from "../hooks/useEmployeeData";
 import { useReactTable, getCoreRowModel } from "@tanstack/react-table";
 import EmployeeTableView from "./Table/EmployeeTableView";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate, Link } from "react-router-dom";
 
 const EmployeeTable = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -37,12 +37,12 @@ const EmployeeTable = () => {
       id: "actions",
       header: "Actions",
       cell: ({ row }) => (
-        <button
+        <Link
+          to={`/employee/${row.original.id}`}
           className="btn btn-primary"
-          onClick={() => navigate(`/employee/${row.original.id}`)}
         >
           View Details
-        </button>
+        </Link>
       ),
     },
   ];

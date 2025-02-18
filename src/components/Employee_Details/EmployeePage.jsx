@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import useEmployeePage from "./hooks/useEmployeePage";
 import EmployeeForm from "./EmployeeForm";
 import { ToastContainer } from "react-toastify";
@@ -66,10 +66,10 @@ const EmployeePage = () => {
           <i className="bi bi-exclamation-triangle-fill"></i>
           Failed to load employee details
         </div>
-        <button onClick={() => navigate(-1)} className="back-button">
+        <Link to="#" onClick={() => navigate(-1)} className="back-button">
           <i className="bi bi-arrow-left"></i>
           Back
-        </button>
+        </Link>
       </div>
     );
   }
@@ -133,9 +133,9 @@ const EmployeePage = () => {
 
   return (
     <div className="page-wrapper">
-      <button onClick={() => navigate(-1)} className="back-button">
+      <Link to="#" onClick={() => navigate(-1)} className="back-button">
         <i className="bi bi-arrow-left"></i> Back
-      </button>
+      </Link>
 
       <div className="page-container">
         <div className="content-wrapper">

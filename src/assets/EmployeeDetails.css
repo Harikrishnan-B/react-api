@@ -175,14 +175,17 @@
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
-  display: flex;
+  display: inline-flex; /* Changed from flex to inline-flex */
   align-items: center;
   gap: 8px;
+  text-decoration: none; /* Added to remove default link underline */
+  width: auto; /* Added to prevent full width expansion */
 }
 
 .back-button:hover {
   background-color: #2580a7;
   color: white;
+  text-decoration: none; /* Keep no underline on hover */
 }
 
 /* Toast Notification */
