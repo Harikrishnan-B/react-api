@@ -106,7 +106,7 @@ const EmployeeForm = ({ initialValues, onSuccess, onCancel, show, onHide }) => {
         </Modal.Title>
       </Modal.Header>
       
-      <Form initialValues={initialValues} onSubmit={handleFormSubmit} className="employee-form">
+      <Form initialValues={initialValues} onSubmit={handleFormSubmit} className="employee-form" focusOnInvalid='true'>
         <Modal.Body>
           <div className="form-container modal-form-container">
             <div className="section">

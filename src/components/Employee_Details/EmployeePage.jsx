@@ -36,7 +36,7 @@ const EmployeePage = () => {
   const handleFormSuccess = (response) => {
     handleSuccess(response); // Call the original success handler
     setShowModal(false); // Close the modal
-  };
+  }; 
 
   const profileImage = useMemo(() => {
     if (
