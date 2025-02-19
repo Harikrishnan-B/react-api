@@ -1,12 +1,7 @@
 import useSWR from "swr";
-import axios from "axios";
 import { useRecoilValue } from "recoil";
 import { userRecoilState } from "../../../recoil/userState.js";
-
-const fetcher = (url, token) =>
-  axios
-    .get(url, { headers: { Authorization: `Bearer ${token}` } })
-    .then((res) => res.data.data);
+import { axiosInstance, API_ENDPOINTS } from "../../../config/axiosInstance.js";
 
 const useEmploymentTypes = () => {
   const user = useRecoilValue(userRecoilState);
@@ -14,10 +9,11 @@ const useEmploymentTypes = () => {
   const { data, error, isLoading } = useSWR(
     token ? ["employmentTypes", token] : null,
     ([, token]) =>
-      fetcher(
-        "https://core-skill-test.webc.in/employee-portal/api/v1/settings/employment-types",
-        token
-      )
+      axiosInstance
+        .get(API_ENDPOINTS.settings.employmentTypes, {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        .then((res) => res.data.data)
   );
 
   return { employmentTypes: data, error, isLoading };
