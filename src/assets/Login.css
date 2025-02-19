@@ -222,3 +222,52 @@
   .signup-link:hover {
     text-decoration: underline;
   }
+
+  /* Add these styles to your Login.css file */
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Primary colors - customize these variables to match your brand */
+:root {
+  --color-primary-50: #f0f9ff;
+  --color-primary-100: #e0f2fe;
+  --color-primary-500: #0ea5e9;
+  --color-primary-600: #0284c7;
+  --color-primary-700: #0369a1;
+}
+
+/* You can replace these color values with your brand colors */
+.bg-primary-100 {
+  background-color: var(--color-primary-100);
+}
+
+.text-primary-600 {
+  color: var(--color-primary-600);
+}
+
+.bg-primary-600 {
+  background-color: var(--color-primary-600);
+}
+
+.hover\:bg-primary-700:hover {
+  background-color: var(--color-primary-700);
+}
+
+.focus\:ring-primary-500:focus {
+  --tw-ring-color: var(--color-primary-500);
+}
+
+.focus\:border-primary-500:focus {
+  border-color: var(--color-primary-500);
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import { Form } from "informed";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap"; // Assuming you're using react-bootstrap for modals
 import useDesignations from "./hooks/useDesignations.js";
 import useDepartments from "./hooks/useDepartments.js";
 import useEmploymentTypes from "./hooks/useEmploymentTypes.js";
@@ -88,7 +88,7 @@ const EmployeeForm = ({ initialValues, onSuccess, onCancel, show, onHide }) => {
   const validateName = (value) => {
     if (!value) return "This field is required";
     if (!/^[A-Za-z\s'-]{2,50}$/.test(value.trim())) {
-      return "Name should only contain alphabets, spaces, hyphens, or apostrophes and be 2-50 characters long.";
+      return "Only letters and spaces are allowed";
     }
     return undefined;
   };

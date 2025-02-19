@@ -1,4 +1,5 @@
-export const validation = (values, masterData) => {
+ 
+ export const validation = (values, masterData) => {
   const errors = {};
 
   const isValidName = (name) => {
@@ -46,10 +47,10 @@ export const validation = (values, masterData) => {
     console.log("Is valid name:", isValidName(values.name));
   }
 
-  if (values.name && !isValidName(values.name)) {
-    errors.name =
-      "Name should only contain alphabets, spaces, hyphens, or apostrophes and be 2-50 characters long.";
-  }
+  // if (values.name && !isValidName(values.name)) {
+  //   errors.name =
+  //     "Name should only contain alphabets, spaces, hyphens, or apostrophes and be 2-50 characters long.";
+  // }
 
   if (values.email && !isValidEmail(values.email)) {
     errors.email = "Invalid email format";
@@ -152,11 +153,13 @@ export const validation = (values, masterData) => {
   return errors;
 };
 
-export const validateField = (field, values, masterData) => {
+export const validateField = (field, values) => {
   if (field === "name" && values.name !== undefined) {
     console.log(`Validating name: "${values.name}"`);
   }
 
-  const errors = validation(values, masterData);
+  
+
+  const errors = validation(values);
   return errors[field];
 };

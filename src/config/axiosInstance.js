@@ -27,6 +27,7 @@ export const API_ENDPOINTS = {
   },
 };
 
+// Helper to add auth token to requests
 export const setAuthToken = (token) => {
   if (token) {
     axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;

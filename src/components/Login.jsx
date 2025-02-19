@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import { userState } from "../recoil/userState";
 import { Form, useField } from "informed";
 import useAuth from "../hooks/useAuth";
-import { Eye, EyeOff, UserCircle, Lock } from "lucide-react";
+import { Eye, EyeOff, UserCircle, Lock, Loader2 } from "lucide-react";
 import "../assets/Login.css";
 
 const CustomField = ({
@@ -16,6 +16,7 @@ const CustomField = ({
   validateOn,
   append,
   icon,
+  disabled,
   ...props
 }) => {
   const { fieldState, fieldApi, render } = useField({
@@ -49,6 +50,7 @@ const CustomField = ({
             placeholder={placeholder || `Enter ${label.toLowerCase()}`}
             aria-invalid={!!error}
             aria-describedby={error ? errorId : undefined}
+            disabled={disabled}
           />
           <div className="input-append">{append}</div>
         </div>
@@ -66,6 +68,7 @@ const CustomField = ({
             placeholder={placeholder || `Enter ${label.toLowerCase()}`}
             aria-invalid={!!error}
             aria-describedby={error ? errorId : undefined}
+            disabled={disabled}
           />
         </div>
       )}
@@ -88,19 +91,26 @@ const Login = () => {
   const { login, error } = useAuth();
   const user = useRecoilValue(userState);
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   if (user) {
     return <Navigate to="/home" replace />;
   }
 
-  const handleSubmit = (values) => {
-    login(values.values.username, values.values.password);
+  const handleSubmit = async (values) => {
+    setIsLoading(true);
+    try {
+      await login(values.values.username, values.values.password);
+    } catch (error) {
+      // Error handling is done in useAuth
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="login-container">
       <div className="login-card">
-        {/* Header with logo */}
         <div className="login-header">
           <div className="logo-container">
             <div className="logo-circle">
@@ -139,31 +149,45 @@ const Login = () => {
               required
               icon={<UserCircle size={18} />}
               placeholder="Enter your email address"
+              disabled={isLoading}
             />
 
             <CustomField
               label="Password"
               name="password"
               fieldType={showPassword ? "text" : "password"}
-              validate={(value) =>
-                !value ? "Password is required" : undefined
-              }
+              validate={(value) => !value ? "Password is required" : undefined}
               required
               icon={<Lock size={18} />}
               placeholder="Enter your password"
+              disabled={isLoading}
               append={
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="password-toggle"
+                  disabled={isLoading}
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               }
             />
 
-            <button type="submit" className="submit-button">
-              Sign In
+            <button
+              type="submit"
+              className="submit-button"
+              disabled={isLoading}
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '0.5rem',
+                opacity: isLoading ? 0.7 : 1,
+                cursor: isLoading ? 'not-allowed' : 'pointer'
+              }}
+            >
+              {isLoading && <Loader2 size={18} className="animate-spin" />}
+              {isLoading ? 'Signing In...' : 'Sign In'}
             </button>
           </Form>
         </div>
