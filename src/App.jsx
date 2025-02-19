@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { RecoilRoot } from "recoil";
-import Login from "./components//Login";
+import Login from "./components//Login/Login";
 import Home from "./components/Home";
 import Auth from "./components/auth/Auth";
 import EmployeeDetailsPage from "./components/Employee_Details/EmployeePage";

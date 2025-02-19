@@ -8,10 +8,11 @@ const useEmployeePage = (id) => {
   const [formData, setFormData] = useState(null);
 
   useEffect(() => {
-    if (details && !editMode) {
+    if (details?.id && !editMode) {
+      // Only update if we have a real data change
       setFormData(details);
     }
-  }, [details, editMode]);
+  }, [details?.id, editMode]); // Depend on specific properties instead of the whole object
 
   const handleEdit = useCallback(() => setEditMode(true), []);
   const handleCancel = useCallback(() => setEditMode(false), []);

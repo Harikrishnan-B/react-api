@@ -145,11 +145,18 @@
   }
   
   .password-toggle {
+    position: absolute;
+    right: 1rem;  /* Adjust right spacing */
+    top: 50%;
+    transform: translateY(-50%);
     background: none;
     border: none;
     color: #6b7280;
     cursor: pointer;
     padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .password-toggle:hover {

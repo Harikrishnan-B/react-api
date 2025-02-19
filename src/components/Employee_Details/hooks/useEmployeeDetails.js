@@ -29,15 +29,14 @@ const useEmployeeDetails = (id) => {
       )
   );
 
-  const details = useMemo(() => {
-    if (!data) return null;
-    return {
-      ...data,
-      designation_id: data.designation?.id,
-      department_id: data.department?.id,
-      employment_type_id: data.employment_type?.id,
-    };
-  }, [data]);
+  const details = data
+    ? {
+        ...data,
+        designation_id: data.designation?.id,
+        department_id: data.department?.id,
+        employment_type_id: data.employment_type?.id,
+      }
+    : null;
 
   return { details, error, isLoading, mutate };
 };
