@@ -1,24 +1,20 @@
 import React from "react";
 import { Form } from "informed";
-import { Modal, Button } from "react-bootstrap"; // Assuming you're using react-bootstrap for modals
-import useDesignations from "./hooks/useDesignations.js";
-import useDepartments from "./hooks/useDepartments.js";
-import useEmploymentTypes from "./hooks/useEmploymentTypes.js";
+import { Modal, Button } from "react-bootstrap";
 import CustomInput from "./CustomInput.jsx";
-import CustomSelect from "./CustomSelect.jsx";
 import CustomRadioGroup from "./CustomRadioGroup.jsx";
 import CustomFileInput from "./CustomFileInput.jsx";
-import useEmployeeForm from "./hooks/useEmployeeForm.js";
-import { validation } from "../../utils/validation.js";
+import useEmployeeForm from "../hooks/useEmployeeForm.js";
+import { validation } from "../../../utils/validation.js";
+import DepartmentSelect from "./DepartmentSelect.jsx";
+import DesignationSelect from "./DesignationSelect.jsx";
+import EmploymentTypeSelect from "./EmploymentTypeSelect.jsx";
 
 const EmployeeForm = ({ initialValues, onSuccess, onCancel, show, onHide }) => {
   const { handleSubmit, isSaving, fieldErrors } = useEmployeeForm(
     initialValues,
     onSuccess
   );
-  const { departments } = useDepartments();
-  const { designations } = useDesignations();
-  const { employmentTypes } = useEmploymentTypes();
 
   const sections = [
     {
@@ -153,37 +149,20 @@ const EmployeeForm = ({ initialValues, onSuccess, onCancel, show, onHide }) => {
             <div className="section">
               <h5>Employment Details</h5>
               <div className="form-grid modal-form-grid">
-                <CustomSelect label="Department" field="department_id" required>
-                  {departments?.map((opt) => (
-                    <option key={opt.id} value={opt.id}>
-                      {opt.name}
-                    </option>
-                  ))}
-                </CustomSelect>
+                <DepartmentSelect
+                  disabled={isSaving}
+                  backendError={fieldErrors["department_id"]}
+                />
 
-                <CustomSelect
-                  label="Designation"
-                  field="designation_id"
-                  required
-                >
-                  {designations?.map((opt) => (
-                    <option key={opt.id} value={opt.id}>
-                      {opt.title}
-                    </option>
-                  ))}
-                </CustomSelect>
+                <DesignationSelect
+                  disabled={isSaving}
+                  backendError={fieldErrors["designation_id"]}
+                />
 
-                <CustomSelect
-                  label="Employment Type"
-                  field="employment_type_id"
-                  required
-                >
-                  {employmentTypes?.map((opt) => (
-                    <option key={opt.id} value={opt.id}>
-                      {opt.title}
-                    </option>
-                  ))}
-                </CustomSelect>
+                <EmploymentTypeSelect
+                  disabled={isSaving}
+                  backendError={fieldErrors["employment_type_id"]}
+                />
               </div>
             </div>
           </div>

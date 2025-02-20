@@ -4,7 +4,7 @@ import { RecoilRoot } from "recoil";
 import Login from "./components//Login/Login";
 import Home from "./components/Home";
 import Auth from "./components/auth/Auth";
-import EmployeeDetailsPage from "./components/Employee_Details/EmployeePage";
+import EmployeeDetailsPage from "./components/Employee_Details/components/EmployeePage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

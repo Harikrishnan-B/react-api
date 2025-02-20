@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import useEmployeePage from "./hooks/useEmployeePage";
+import useEmployeePage from "../hooks/useEmployeePage";
 import EmployeeForm from "./EmployeeForm";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../../assets/EmployeeDetails.css";
+import "../../../assets/EmployeeDetails.css";
 
 const EmployeePage = () => {
   const { id } = useParams();
