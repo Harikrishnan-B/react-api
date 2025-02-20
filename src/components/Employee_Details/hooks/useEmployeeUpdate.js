@@ -1,7 +1,8 @@
 import { useState, useCallback } from "react";
-import axios from "axios";
 import { useRecoilValue } from "recoil";
 import { userRecoilState } from "../../../recoil/userState";
+import { axiosInstance, API_ENDPOINTS } from "../../../config/axiosInstance";
+
 const allowedKeys = [
   "id",
   "name",
@@ -33,6 +34,7 @@ const numericKeys = [
   "salary",
   "id",
 ];
+
 const useEmployeeUpdate = () => {
   const user = useRecoilValue(userRecoilState);
   const token = user?.token;
@@ -61,11 +63,8 @@ const useEmployeeUpdate = () => {
       setFieldErrors({});
       try {
         const payload = createPayload(data);
-        for (let [key, value] of payload.entries()) {
-          console.log(key, value);
-        }
-        const response = await axios.post(
-          "https://core-skill-test.webc.in/employee-portal/api/v1/employee/update",
+        const response = await axiosInstance.post(
+          API_ENDPOINTS.employee.update,
           payload,
           {
             headers: {

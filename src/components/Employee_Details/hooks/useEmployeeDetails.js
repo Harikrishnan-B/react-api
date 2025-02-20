@@ -1,14 +1,13 @@
 import { useMemo } from "react";
 import useSWR from "swr";
-import axios from "axios";
 import { useRecoilValue } from "recoil";
 import { userRecoilState } from "../../../recoil/userState";
+import { axiosInstance, API_ENDPOINTS } from "../../../config/axiosInstance";
 
 const fetcher = async (url, id, token) => {
-  const response = await axios.get(url, {
+  const response = await axiosInstance.get(url, {
     params: { id },
     headers: {
-      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -21,12 +20,7 @@ const useEmployeeDetails = (id) => {
 
   const { data, error, isLoading, mutate } = useSWR(
     token && id ? ["employeeDetails", id, token] : null,
-    ([, id, token]) =>
-      fetcher(
-        "https://core-skill-test.webc.in/employee-portal/api/v1/employee/show",
-        id,
-        token
-      )
+    ([, id, token]) => fetcher(API_ENDPOINTS.employee.show, id, token)
   );
 
   const details = data

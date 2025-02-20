@@ -11,7 +11,7 @@ const useEmploymentTypes = () => {
     ([, token]) =>
       axiosInstance
         .get(API_ENDPOINTS.settings.employmentTypes, {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => res.data.data)
   );

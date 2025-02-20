@@ -20,12 +20,6 @@ const EmployeeForm = ({ initialValues, onSuccess, onCancel, show, onHide }) => {
   const { designations } = useDesignations();
   const { employmentTypes } = useEmploymentTypes();
 
-  // const masterData = {
-  //   departments,
-  //   designations,
-  //   employmentTypes,
-  // };
-
   const sections = [
     {
       title: "Personal Information",
@@ -77,13 +71,6 @@ const EmployeeForm = ({ initialValues, onSuccess, onCancel, show, onHide }) => {
     { label: "Female", value: 2 },
     { label: "Other", value: 3 },
   ];
-
-  // const validateForm = (values) => {
-  //   console.log("Form validation running with values:", values);
-  //   const errors = validation(values, masterData);
-  //   console.log("Validation errors:", errors);
-  //   return errors;
-  // };
 
   const validateName = (value) => {
     if (!value) return "This field is required";

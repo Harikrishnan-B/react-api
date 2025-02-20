@@ -9,8 +9,7 @@ import "../../assets/EmployeeDetails.css";
 const EmployeePage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [showModal, setShowModal] = useState(false); // State to control modal visibility
-
+  const [showModal, setShowModal] = useState(false); 
   const {
     formData,
     error,

@@ -10,7 +10,6 @@ const useEmployeePage = (id) => {
  
 useEffect(() => {
   if (details?.id && !editMode) {
-    // Only update if we have a real data change
     setFormData(details);
   }
 }, [details?.id, editMode]); // Depend on specific properties instead of the whole object
